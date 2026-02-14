@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Vos 💖</title>
+
+<style>
+
+/* ====== COLORES ====== */
+:root{
+    --fondo:#fff0f6;
+    --principal:#ff4d6d;
+    --secundario:#ff8fa3;
+    --texto:#5a1a2a;
+    --card:#ffffff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,var(--fondo),var(--secundario));
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* ====== LOGIN ====== */
+
+.login{
+    background:var(--card);
+    padding:35px 30px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    max-width:350px;
+    width:100%;
+    text-align:center;
+    animation:fade 1.5s;
+}
+
+.login h2{
+    color:var(--principal);
+    margin-bottom:15px;
+}
+
+.login input{
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+    border-radius:20px;
+    border:1px solid #ddd;
+    outline:none;
+    font-size:15px;
+}
+
+.login button{
+    background:var(--principal);
+    border:none;
+    color:white;
+    padding:12px 25px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login button:hover{
+    transform:scale(1.05);
+}
+
+.error{
+    color:red;
+    font-size:13px;
+    display:none;
+}
+
+/* ====== CARD ====== */
+
+.card{
+    display:none;
+    background:var(--card);
+    max-width:400px;
+    width:100%;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    overflow:hidden;
+    text-align:center;
+    animation:fade 1.5s;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+header{
+    background:var(--principal);
+    color:white;
+    padding:25px;
+}
+
+.contenido{
+    padding:25px 20px;
+    color:var(--texto);
+}
+
+.mensaje{
+    line-height:1.6;
+    margin-bottom:20px;
+}
+/* GALERÍA */
+
+.galeria{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:20px 0;
+}
+
+.galeria img{
+    width:100%;
+    height:120px;
+    object-fit:contain;
+    background:#fff;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.galeria img:hover{
+    transform:scale(1.05);
+}
+
+button{
+    background:var(--principal);
+    border:none;
+    color:white;
+    padding:12px 22px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:.3s;
+    margin:5px;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* ====== SORPRESA ====== */
+
+.sorpresa{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.7);
+    justify-content:center;
+    align-items:center;
+    z-index:99;
+}
+
+.sorpresa-box{
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
+    max-width:300px;
+    animation:zoom .8s;
+}
+
+@keyframes zoom{
+    from{transform:scale(.5);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.sorpresa-box h2{
+    color:var(--principal);
+    margin-bottom:15px;
+}
+
+/* ====== CORAZONES ====== */
+
+.corazones{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+
+.corazon{
+    position:absolute;
+    font-size:20px;
+    animation:caer 6s linear infinite;
+    opacity:.7;
+}
+
+@keyframes caer{
+    from{transform:translateY(-10vh);}
+    to{transform:translateY(110vh);}
+}
+/* ZOOM FOTOS */
+
+.modalFoto{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.8);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modalFoto img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:20px;
+    animation:zoomFoto .4s;
+}
+
+@keyframes zoomFoto{
+    from{transform:scale(.5);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login" id="login">
+    <h2>Acceso especial</h2>
+    <p>Pista: día que nos confesamos</p>
+
+    <input type="password" id="pass" placeholder="Contraseña...">
+
+    <button onclick="entrar()">Entrar</button>
+
+    <p class="error" id="error">Contraseña incorrecta 😢</p>
+</div>
+
+<!-- TARJETA -->
+<div class="card" id="card">
+
+<header>
+    <h1>Para Isaac 💖</h1>
+    <p>Feliz San Valentín</p>
+</header>
+
+<div class="contenido">
+
+<div class="mensaje">
+Amor,
+
+<br><br>
+
+Hice esto para vos, con todo mi corazón.
+Gracias por ser parte de mi vida y hacerme tan feliz.
+
+<br><br>
+
+Te amo mucho ❤️
+</div>
+<!-- GALERÍA -->
+<div class="galeria">
+
+    <img src="foto1.jpg" onclick="abrirFoto(this)">
+    <img src="foto2.jpg" onclick="abrirFoto(this)">
+    <img src="foto3.jpg" onclick="abrirFoto(this)">
+    <img src="foto4.jpg" onclick="abrirFoto(this)">
+
+</div>
+
+<audio id="musica" src="carmesi.mp3"></audio>
+
+<button onclick="play()">🎵 Nuestra canción</button>
+<button onclick="teAmo()">💖 Te amo</button>
+<button onclick="mostrarSorpresa()">🎁 Sorpresa</button>
+
+<footer style="margin-top:15px;font-size:13px;opacity:.7">
+Hecho con amor 
+</footer>
+
+</div>
+</div>
+
+<!-- SORPRESA -->
+<div class="sorpresa" id="sorpresa">
+
+<div class="sorpresa-box">
+
+<h2>Amor de mi vida</h2>
+
+<p>
+Este es el primer San Valentin de muchos.
+Aunque estemos a la distancia queria preparate algo lindo y
+que me represente jajaj.
+Te amo Isaac, sos mi persona favorita
+</p>
+
+<br>
+
+<p>Espero pasar todos los San Valentin con vos</p>
+
+<br>
+
+<button onclick="cerrar()">Cerrar</button>
+
+</div>
+</div>
+
+<!-- CORAZONES -->
+<div class="corazones" id="corazones"></div>
+
+<script>
+
+/* ====== CONFIG ====== */
+
+// Cambiá acá la contraseña 👇
+const CLAVE = "29102025";
+
+/* ===================== */
+
+function entrar(){
+
+    const pass = document.getElementById("pass").value;
+
+    if(pass === CLAVE){
+
+        document.getElementById("login").style.display="none";
+        document.getElementById("card").style.display="block";
+
+        iniciarCorazones();
+
+    }else{
+        document.getElementById("error").style.display="block";
+    }
+}
+
+/*function irMensaje(){
+
+    document.getElementById("paginaFotos").style.display="none";
+    document.getElementById("paginaMensaje").style.display="block";
+
+}
+    
+Música */
+function play(){
+    document.getElementById("musica").play();
+}
+
+/* Sorpresa */
+function mostrarSorpresa(){
+    document.getElementById("sorpresa").style.display="flex";
+}
+/* BOTON TE AMO */
+
+function teAmo(){
+
+    for(let i=0;i<25;i++){
+
+        const c = document.createElement("div");
+        c.classList.add("corazon");
+        c.innerHTML = "💖";
+
+        c.style.left = Math.random()*100+"vw";
+        c.style.top = Math.random()*100+"vh";
+        c.style.position="fixed";
+        c.style.fontSize = Math.random()*20+20+"px";
+
+        document.body.appendChild(c);
+
+        setTimeout(()=>c.remove(),2000);
+    }
+
+    alert("Yo te amo más 😘❤️");
+}
+
+function cerrar(){
+    document.getElementById("sorpresa").style.display="none";
+}
+
+/* Corazones */
+
+const cont = document.getElementById("corazones");
+
+function iniciarCorazones(){
+    setInterval(()=>{
+        const c = document.createElement("div");
+        c.classList.add("corazon");
+        c.innerHTML="❤️";
+        c.style.left=Math.random()*100+"vw";
+        c.style.fontSize=Math.random()*20+15+"px";
+        c.style.animationDuration=Math.random()*3+4+"s";
+        cont.appendChild(c);
+
+        setTimeout(()=>c.remove(),7000);
+    },300);
+}
+/* ZOOM FOTO */
+
+function abrirFoto(img){
+    document.getElementById("fotoGrande").src = img.src;
+    document.getElementById("modalFoto").style.display = "flex";
+}
+
+function cerrarFoto(){
+    document.getElementById("modalFoto").style.display = "none";
+}
+</script>
+<!-- MODAL FOTO -->
+<div class="modalFoto" id="modalFoto" onclick="cerrarFoto()">
+    <img id="fotoGrande">
+</div>
+</body>
+</html>
